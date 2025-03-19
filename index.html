@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Transportes Morales</title>
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">
+            <img src="./img/opcion3.jpeg" alt="logo">
+        </a>
+        <nav class="menu">
+            <a href="./index.html" id="menu" class="nav-link"><strong>Inicio</strong></a>
+            <a href="#servicios" id="menu" class="nav-link"><strong>Servicios</strong></a>
+            <a href="#Nosotros" id="menu" class="nav-link"><strong>Nosotros</strong></a>
+            <a href="#Contacto" id="menu" class="nav-link"><strong>Contacto</strong></a>
+        </nav>
+    </header>
+    <div id="servicios" class="card-container">
+        <!-- Primera tarjeta -->
+        <div class="card-flip">
+            <div class="card-inner">
+                <div class="card-front card-front-1">
+                    <h3>Transporte Ejecutivo</h3>
+                </div>
+                <div class="card-back">
+                    <p>Nuestro servicio de transporte ejecutivo está diseñado para trasladar a pasajeros con seguridad y puntualidad. Recogemos a tu equipo y los llevamos a sus destinos designados, priorizando la comodidad, la eficiencia y un alto estándar de calidad.</p>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Segunda tarjeta -->
+        <div class="card-flip">
+            <div class="card-inner">
+                <div class="card-front card-front-2">
+                    <h3>Transfer</h3>
+                </div>
+                <div class="card-back">
+                    <p>Te ofrecemos un servicio de transfer pensado para ti, con traslados seguros, puntuales y de alta calidad. Nos encargamos de llevarte cómodamente a tu destino con vehículos modernos y conductores expertos para una experiencia confiable y placentera.</p>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Tercera tarjeta -->
+        <div class="card-flip">
+            <div class="card-inner">
+                <div class="card-front card-front-3">
+                    <h3>Encomiendas</h3>
+                </div>
+                <div class="card-back">
+                    <p>Ofrecemos un servicio confiable y seguro para el envío de pequeñas encomiendas empresariales. Nos encargamos de llevar tus paquetes a los destinos que nos indiques, garantizando calidad y eficiencia en cada entrega.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="Nosotros" class="content">
+        <section id="servicios" class="mission">
+            <h2>Misión</h2>
+            <p>En Transportes Morales, nos dedicamos a proporcionar servicios de transporte privado de pasajeros, incluyendo ejecutivos y trabajadores, así como viajes especiales y la entrega y retiro de encomiendas pequeñas. Nuestro compromiso es ofrecer un servicio seguro, puntual y de alta calidad, adaptándonos a las necesidades específicas de cada cliente y contribuyendo al bienestar y comodidad de nuestros usuarios.</p>
+        </section>
+        <section class="vision">
+            <h2>Visión</h2>
+            <p>Ser la empresa líder en transporte privado de pasajeros y encomiendas en la región, reconocida por nuestra excelencia en el servicio, innovación y responsabilidad social. Aspiramos a expandir nuestras operaciones y seguir mejorando continuamente, estableciendo nuevos estándares en la industria del transporte y siendo un referente de confianza y eficiencia para nuestros clientes.</p>
+        </section>
+    </div>
+    <form id="Contacto" method="POST">
+        <!--Contacto-->
+        <h2>¡Cotiza con nosotros!</h2>
+        <br><br>
+        <input type="text" name="Nombre" placeholder="Nombre Completo" required>
+        <br>
+        <input type="text" name="Empresa" placeholder="Razón Social" required>
+        <br>
+        <input type="email" name="Email" id="Email" placeholder="Email" required>
+        <br>
+        <input type="tel" name="tel" id="tel" placeholder="Teléfono" 
+        pattern="[0-9()+-]{9,}" 
+        title="El teléfono debe tener al menos 9 números y no debe contener espacios. Solo se permiten números y los símbolos (+, -, ())." 
+        required>
+        <br>
+        <textarea name="Mensaje" placeholder="¡Déjanos tu mensaje!" required></textarea>
+        <br><br>
+        <button type="submit">Enviar cotización</button>
+    </form>
+    <script>
+        // Validación del campo teléfono
+        const telefonoInput = document.getElementById("tel");
+        telefonoInput.addEventListener("input", function () {
+            const telefonoRegex = /^[0-9()+-]{9,}$/;
+            if (!telefonoRegex.test(telefonoInput.value)) {
+                telefonoInput.setCustomValidity(
+                    "El teléfono debe contener al menos 9 dígitos, solo números y los símbolos (+, -, ())."
+                );
+            } else {
+                telefonoInput.setCustomValidity(""); // Borra el mensaje si es válido
+            }
+        });
+        document.getElementById("Contacto").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita que el formulario recargue la página
+    
+            const formData = new FormData(this); // Captura los datos del formulario
+    
+            // Envía los datos al servidor usando fetch
+            fetch("Enviar_correo.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text()) // Convierte la respuesta a texto
+            .then(data => {
+                alert(data); // Muestra el mensaje del servidor en un alert
+                this.reset(); // Limpia el formulario
+            })
+            .catch(error => {
+                alert("Hubo un error al enviar la solicitud: " + error.message); // Maneja errores
+            });
+        });
+    </script>
+    
+    <section>
+        <div class="map-conteiner">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.460097667653!2d-70.56851932461538!3d-33.41124717340514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cee522c6b493%3A0xfed518c450c689dc!2sAv.%20Manquehue%20Sur%20520%2C%20Santiago%2C%20Las%20Condes%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1734484706881!5m2!1ses-419!2scl" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+    <footer>
+        <style>
+            .custom-link {
+                color: white; /* Mantiene el color del texto circundante */
+                text-decoration: none; /* Elimina la línea bajo el texto */
+            }
+            a:hover {
+            color: white; /* Mantiene el color del texto al pasar el mouse */
+            text-decoration: none; /* Asegura que no aparezca la línea bajo el texto al pasar el mouse */
+        }
+        </style>
+        <a>&copy; 2025 Transportes Morales. Todos los derechos reservados.</a>
+        <br>
+        <a class="custom-link" href="mailto:contacto@transmorales.cl?subject=Nombre%20de%20Empresa%20Cotizante&body=Dejanos%20tu%20informacion%20de%20contacto%20y%20descripción%20de%20tu%20requerimiento">Correo: contacto@transmorales.cl</a>
+        <br>
+        <a class="custom-link" href="">Tel: 9 8615 6759</a>
+    </footer>
+</body>
+</html>
